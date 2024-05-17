@@ -1,0 +1,27 @@
+.main-box{
+  text-align: center;
+}
+
+.input-box{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-box > input{
+  height: 20px;
+  font-size: 18px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.render-area{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+

@@ -1,0 +1,13 @@
+.card{
+    max-width: 40%;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.card > p{
+    line-height: 20px;
+}
+
+
