@@ -1,53 +1,56 @@
 import { useState } from "react";
 import './App.css';
-import Card from './Card.jsx'
+import Card from './Card.jsx';
 
 
-function App() {
+export default function App() {
 
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
-  const [forecast, setForecast] = useState(["mega"]);
+  const [forecast, setForecast] = useState([]);
+  const [locationName, setLocationName] = useState();
+
+  const year = new Date().getFullYear();
 
   function handleLatChange(event){
     setLat(event.target.value);
-  }
+  };
 
   function handleLonChange(event){
     setLon(event.target.value);
-  }
+  };
 
+  // fetch from API based on lat&lon
   function getWeather(){
     if (lat && lon !== ""){
-      console.log(lat)
-      console.log(lon)
       fetch(`https://api.weather.gov/points/${lat},${lon}`)
       .then(res => res.json())
       .then(data => handleResult(data))
-    }
-  }
+    };
+  };
 
-  // note, notice the endpoint is provided, forward to render function
-  function handleResult(data){
-    if(data.status == "404"){
-      console.log('error')
+  // first fetch provides grid X&Y end point, needed for results
+  function handleResult(input){
+    if(input.status == "404"){
+      setForecast("Input error - please try again");
     } else {
-      console.log('running')
-      fetch(data.properties.forecast)
+      const locationName = (input.properties.relativeLocation.properties.city);
+      setLocationName(`Weather Forecast for ${locationName}`);
+      fetch(input.properties.forecast)
       .then(res => res.json())
       .then(data => renderWeather(data))
-    }
-  }
+    };
+  };
 
+  // render weather results
   function renderWeather(forecast){
-    console.log(forecast)
     setForecast((forecast.properties.periods.map(result => {
       return (<Card
         name = {result.name}
         description = {result.detailedForecast}
-      />)
-    })))
-  }
+      />);
+    })));
+  };
 
   return (
     <div className='main-box'>
@@ -67,9 +70,12 @@ function App() {
         />
         <button onClick={getWeather}>Get Weather</button>
       </div>
+      <div className='location-name'>{locationName}</div>
       <div className ='render-area'>{[forecast]}</div>
+      <footer>Weather Forecast App {year}</footer>
     </div>
-  )
-}
+  );
+};
 
-export default App
+
+

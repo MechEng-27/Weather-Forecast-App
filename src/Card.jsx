@@ -7,5 +7,5 @@ export default function Card(props){
             <h2>{props.name}</h2>
             <p>{props.description}</p>
         </div>
-    )
-}
+    );
+};
