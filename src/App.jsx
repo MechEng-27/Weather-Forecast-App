@@ -53,25 +53,25 @@ export default function App() {
   };
 
   return (
-    <div className='main-box'>
+    <div className = 'main-box'>
       <h1>Weather Forecast App</h1>
-      <div className='input-box'>
+      <div className = 'input-box'>
         <input
-          type="text"
-          placeholder='Enter Latitude'
-          onChange={handleLatChange}
-          value={lat}
+          type = "text"
+          placeholder = 'Enter Latitude'
+          onChange = {handleLatChange}
+          value = {lat}
         />
         <input
-          type="text"
-          placeholder='Enter Longitude'
-          onChange={handleLonChange}
-          value={lon}
+          type = "text"
+          placeholder = 'Enter Longitude'
+          onChange = {handleLonChange}
+          value = {lon}
         />
-        <button onClick={getWeather}>Get Weather</button>
+        <button onClick = {getWeather}>Get Weather</button>
       </div>
-      <div className='location-name'>{locationName}</div>
-      <div className ='render-area'>{[forecast]}</div>
+      <div className = 'location-name'>{locationName}</div>
+      <div className = 'render-area'>{[forecast]}</div>
       <footer>Weather Forecast App {year}</footer>
     </div>
   );
