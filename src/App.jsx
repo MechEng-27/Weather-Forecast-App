@@ -32,6 +32,8 @@ export default function App() {
   // first fetch provides grid X&Y end point, needed for results
   function handleResult(input){
     if(input.status == "404"){
+      // prevent name from remaining from previous search
+      setLocationName('')
       setForecast("Input error - please try again");
     } else {
       const locationName = (input.properties.relativeLocation.properties.city);
