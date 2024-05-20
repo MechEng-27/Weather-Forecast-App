@@ -7,8 +7,8 @@ export default function App() {
 
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
-  const [forecast, setForecast] = useState([]);
   const [locationName, setLocationName] = useState();
+  const [forecast, setForecast] = useState([]);
 
   const year = new Date().getFullYear();
 
