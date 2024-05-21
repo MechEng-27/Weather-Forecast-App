@@ -38,6 +38,7 @@ body, html{
 
 .input-box > button:hover{
   background: #c9c9c9;
+  cursor: pointer;
 }
 
 .location-name{
