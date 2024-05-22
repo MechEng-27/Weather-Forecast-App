@@ -14,3 +14,6 @@ Main page
 Results rendered
 
 ---
+
+![image](https://github.com/MechEng-27/Weather-Forecast-App/assets/118615143/da9fa1c5-ff3b-4433-9e76-a431ff9d99a8)
+Previous successful search location saved to local storage for future quick access
