@@ -1,16 +1,49 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './App.css';
 import Card from './Card.jsx';
-
 
 export default function App() {
 
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
   const [locationName, setLocationName] = useState();
+  // render weather result or error
   const [forecast, setForecast] = useState([]);
 
+  // handle previous results from local storage
+  const [prevLat, setPrevLat] = useState();
+  const [prevLon, setPrevLon] = useState();
+  const [prevName, setPrevName] = useState();
+  // show button for previous result
+  const [renderPrev, setRenderPrev] = useState(false);
+  // upon click of previous location button,
+  // render weather forecast
+  const [runPrev, setRunPrev] = useState (false);
+
   const year = new Date().getFullYear();
+  
+  // get valid, saved local data and render button to get weather
+  // for previous location
+  useEffect(() => {
+    if (localStorage.getItem('prevName') !== null){
+      setPrevLat(localStorage.getItem('prevLat'));
+      setPrevLon(localStorage.getItem('prevLon'));
+      setPrevName(localStorage.getItem('prevName'));
+      setRenderPrev(true);
+    }
+  }, [prevName]);
+
+  // render weather for previous valid weather location
+  // upon button click
+  useEffect(() => {
+    getWeather()
+    setRenderPrev(false);
+  },[runPrev]);
+
+// if new search, hide previous result button
+  useEffect(() => {
+    setRenderPrev(false);
+  },[locationName]);
 
   function handleLatChange(event){
     setLat(event.target.value);
@@ -19,6 +52,13 @@ export default function App() {
   function handleLonChange(event){
     setLon(event.target.value);
   };
+
+  // fetch weather for previously saved result
+  function prevWeather(){
+    setLat(prevLat);
+    setLon(prevLon);
+    setRunPrev(true);
+  }
 
   // fetch from API based on lat&lon
   function getWeather(){
@@ -41,6 +81,11 @@ export default function App() {
       fetch(input.properties.forecast)
       .then(res => res.json())
       .then(data => renderWeather(data))
+      // set previous location data
+      localStorage.setItem('prevLat', lat);
+      localStorage.setItem('prevLon', lon);
+      localStorage.setItem('prevName', locationName);
+      setPrevName(locationName);
     };
   };
 
@@ -71,6 +116,10 @@ export default function App() {
           value = {lon}
         />
         <button onClick = {getWeather}>Get Weather</button>
+        {renderPrev ? 
+          <button
+          onClick = {prevWeather}
+          >Get {prevName} Weather</button> : '' }
       </div>
       <div className = 'location-name'>{locationName}</div>
       <div className = 'render-area'>{[forecast]}</div>
