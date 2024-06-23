@@ -3,6 +3,10 @@ body, html{
   padding: 0;
 }
 
+* {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
 .main-box{
   text-align: center;
   min-height: 100vh;
